@@ -14,8 +14,8 @@ $creds = json_decode($string, true);
 # now use the $creds array to configure your app e.g.:
 $MYSQL_HOSTNAME = $creds['MYSQLS']['MYSQLS_HOSTNAME'];
 
-global $databaseConfig;
-$databaseConfig = array(
+global $database;
+$database = array(
     "type" => "MySQLDatabase",
     "server" => $creds['MYSQLS']['MYSQLS_HOSTNAME'],
     "username" => $creds['MYSQLS']['MYSQLS_USERNAME'],
