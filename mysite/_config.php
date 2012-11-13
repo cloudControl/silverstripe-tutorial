@@ -11,11 +11,8 @@ if ($string == false) {
 # the file contains a JSON string, decode it and return an associative array
 $creds = json_decode($string, true);
 
-# now use the $creds array to configure your app e.g.:
-$MYSQL_HOSTNAME = $creds['MYSQLS']['MYSQLS_HOSTNAME'];
-
-global $database;
-$database = array(
+global $databaseConfig;
+$databaseConfig = array(
     "type" => "MySQLDatabase",
     "server" => $creds['MYSQLS']['MYSQLS_HOSTNAME'],
     "username" => $creds['MYSQLS']['MYSQLS_USERNAME'],
@@ -24,7 +21,7 @@ $database = array(
     "path" => ""
 );
 
-// require_once('conf/ConfigureFromEnv.php');
+require_once('conf/ConfigureFromEnv.php');
 
 MySQLDatabase::set_connection_charset('utf8');
 
