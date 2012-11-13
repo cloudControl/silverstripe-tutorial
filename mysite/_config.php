@@ -3,10 +3,28 @@
 global $project;
 $project = 'mysite';
 
-global $database;
-$database = '';
+$string = file_get_contents($_ENV['CRED_FILE'], false);
+if ($string == false) {
+    die('FATAL: Could not read credentials file');
+}
 
-require_once('conf/ConfigureFromEnv.php');
+# the file contains a JSON string, decode it and return an associative array
+$creds = json_decode($string, true);
+
+# now use the $creds array to configure your app e.g.:
+$MYSQL_HOSTNAME = $creds['MYSQLS']['MYSQLS_HOSTNAME'];
+
+global $databaseConfig;
+$databaseConfig = array(
+    "type" => "MySQLDatabase",
+    "server" => $creds['MYSQLS']['MYSQLS_HOSTNAME'],
+    "username" => $creds['MYSQLS']['MYSQLS_USERNAME'],
+    "password" => $creds['MYSQLS']['MYSQLS_PASSWORD'],
+    "database" => $creds['MYSQLS']['MYSQLS_DATABASE'],
+    "path" => ""
+);
+
+// require_once('conf/ConfigureFromEnv.php');
 
 MySQLDatabase::set_connection_charset('utf8');
 
