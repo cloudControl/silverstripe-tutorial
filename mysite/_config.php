@@ -23,6 +23,8 @@ $databaseConfig = array(
 
 require_once('conf/ConfigureFromEnv.php');
 
+Security::setDefaultAdmin('username', 'password');
+
 MySQLDatabase::set_connection_charset('utf8');
 
 // Set the current theme. More themes can be downloaded from
